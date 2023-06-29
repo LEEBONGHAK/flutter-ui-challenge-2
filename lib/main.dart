@@ -13,9 +13,9 @@ class App extends StatefulWidget {
 
 // 앱의 데이터를 가지고 있는 부분
 class _AppState extends State<App> {
-  int cnt = 0;
+  List<int> nums = [];
 
-  // onclicked 메서드 선언 및 데이터 입력
+  // onClicked 메서드 선언 및 데이터 입력
   void onClicked() {
     /**
      * setState는 State 클래스에게 데이터가 변경되었다고 알리는 함수
@@ -24,7 +24,7 @@ class _AppState extends State<App> {
      * setState 밖에 로직을 넣어도 괜찮으나, 명확성을 위해 setState 내부에 기입하는 것이 좋음
      *  */
     setState(() {
-      cnt += 1;
+      nums.add(nums.length);
     });
   }
 
@@ -32,23 +32,18 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xFFF4EDDB),
+        backgroundColor: const Color(0xFFF4EDDB),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Click Count',
+                'Click Button',
                 style: TextStyle(
                   fontSize: 30,
                 ),
               ),
-              Text(
-                '$cnt',
-                style: const TextStyle(
-                  fontSize: 30,
-                ),
-              ),
+              for (var n in nums) Text('$n'),
               IconButton(
                 iconSize: 40,
                 onPressed: onClicked,
