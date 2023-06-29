@@ -14,6 +14,13 @@ class App extends StatefulWidget {
 // 앱의 데이터를 가지고 있는 부분
 class _AppState extends State<App> {
   List<int> nums = [];
+  bool showTitle = true;
+
+  void toggleTitle() {
+    setState(() {
+      showTitle = !showTitle;
+    });
+  }
 
   // onClicked 메서드 선언 및 데이터 입력
   void onClicked() {
@@ -44,7 +51,7 @@ class _AppState extends State<App> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const MyLargeTitle(),
+              showTitle ? MyLargeTitle() : const Text('nothing'),
               for (var n in nums) Text('$n'),
               IconButton(
                 iconSize: 40,
@@ -52,7 +59,14 @@ class _AppState extends State<App> {
                 icon: const Icon(
                   Icons.add_box_rounded,
                 ),
-              )
+              ),
+              IconButton(
+                iconSize: 50,
+                onPressed: toggleTitle,
+                icon: const Icon(
+                  Icons.remove_red_eye,
+                ),
+              ),
             ],
           ),
         ),
@@ -61,10 +75,30 @@ class _AppState extends State<App> {
   }
 }
 
-class MyLargeTitle extends StatelessWidget {
+class MyLargeTitle extends StatefulWidget {
   const MyLargeTitle({
     super.key,
   });
+
+  @override
+  State<MyLargeTitle> createState() => _MyLargeTitleState();
+}
+
+class _MyLargeTitleState extends State<MyLargeTitle> {
+  /// State를 초기화 하기 위한 메서드
+  /// 대부분의 상황에서는 필요 없지만, 부모 요소에 의존하는 데이터를 초기화해야하는 경우 사용됨
+  /// initState의 경우 항상 build 메서드보다 먼저 호출되어야 하며, 오직 단 한 번만 호출됨
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  /// widget이 스크린에서 제거될 때 호출되는 메서드
+  /// widget이 widget tree에서 제거되기 전에 무엇인가를 취소할 때 사용됨
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
